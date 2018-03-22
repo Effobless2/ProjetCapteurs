@@ -159,8 +159,8 @@ def loaddb():
                       tel        = "0123456789",
                       TypeMesure = typeM2.get_id(),
                       parterre   = p1.get_id())
-    capteur2.set_X(47.844522)
-    capteur2.set_Y(1.933980)
+    capteur2.set_X(1.933980)
+    capteur2.set_Y(47.844522)
     db.session.add(capteur2)
 
     capteur3 = Capteur(name       = "Capteur3",
@@ -168,8 +168,8 @@ def loaddb():
                       tel        = "0123458789",
                       TypeMesure = typeM2.get_id(),
                       parterre   = p2.get_id())
-    capteur3.set_X(47.844484)
-    capteur3.set_Y(1.925685)
+    capteur3.set_X(1.938535)
+    capteur3.set_Y(47.849420)
     db.session.add(capteur3)
 
     db.session.commit()
