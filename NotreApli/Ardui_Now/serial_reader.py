@@ -1,25 +1,30 @@
 import re
 import serial
 import http.client
+import time
 # from ../Web/Apply/app import app, db
 import datetime
 
 PORT = ''
 from serial.tools import list_ports
-ports = list(list_ports.comports())
+ports = list_ports.comports()
 # ports = list(serial.tools.list_ports.comports())
 print(ports)
 for p in ports:
-    if "Arduino" in p[1]:
+    print(p.device)
+    print(p.hwid)
+    if "2341:8036" in p.usb_info():
         PORT = p[0]
-        print(p)
-
-SERVER = "localhost:5000"
+        break
+print(PORT)
+# SERVER = "localhost:5000"
 
 ser = serial.Serial(port=PORT, baudrate=115200)
-
 while True:
-    a = ser.readline().decode('latin-1')
+    print("deb")
+    time.sleep(100)
+    a = ser.readline().decode("latin-1") #Bloque même les prints précédents
+    print(a)
     reg_capt = re.search("([0-9]+) @ (.+)", a)
     reg_pos = re.search("([0-9]+) % (.+)", a)
     if reg_capt or reg_pos:
@@ -44,6 +49,10 @@ while True:
                 # capteur.set_Y(float(msg[1]))
                 # db.session.commit()
                 print(msg)
+
+
+
+
 # from winregistry import WinRegistry as winreg
 # import itertools
 #
