@@ -21,6 +21,7 @@ class ArduiNow
     char* readLine(Stream &print);
     char* readGPS();
     String sendData(String command, const int timeout, boolean debug);
+    char contentMsg(WISMO228 sms);
     
   private:
     int _photocellPin;

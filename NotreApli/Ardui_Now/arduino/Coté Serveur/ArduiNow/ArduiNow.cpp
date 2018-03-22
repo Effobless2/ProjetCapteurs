@@ -1,6 +1,7 @@
 /*
   ArduinNow.cpp - Library for ArduinNow project.
   2017-2018
+  Captor
 */
 
 #include "Arduino.h"
@@ -24,14 +25,14 @@ Get the datas of the sensor*/
 char* ArduiNow::sense() {
   int valeur=analogRead(A0);//on lit la valeur au CAN 0
   int t=map(valeur,0,1023,0,5000);//on transforme la valeur lue en valeur de tension entre 0 et 5000 mV (car pas de virgule)
- // Serial.println(t);
+  Serial.println(t);
   int tmp=map(t,0,1750,-50,125); //on transformela tension (de 0 à 1750mV en température (de -50°C à 125°C);
- // Serial.println(tmp);
+  Serial.println(tmp);
     char ans[50];
     String str;
     str = String(tmp);
-    str.toCharArray(ans,50);
-  //  Serial.write(ans);
+    str.toCharArray(ans,10);
+    Serial.write(ans);
     return ans;
 }
 
@@ -49,13 +50,10 @@ void ArduiNow::printMsg(WISMO228 sms) {
     char senderBuffer[RESPONSE_LENGTH_MAX];
     char contentBuffer[SMS_LENGTH_MAX];
     sms.readSms(senderBuffer, contentBuffer);
-  //  Serial.print("Message de ");
-  //  Serial.print(senderBuffer);
-  //  Serial.print(" : ");
-  //  Serial.println(contentBuffer);
-    strcat(senderBuffer, " ");
-    strcat(senderBuffer, contentBuffer);
-    Serial.write(senderBuffer);
+    Serial.print("Message de ");
+    Serial.print(senderBuffer);
+    Serial.print(" : ");
+    Serial.println(contentBuffer);
 }
 
 /*Function detectSms()
@@ -129,7 +127,7 @@ Serial.println(frame);
   strcat(dataGPG, ";");
   strcat(dataGPG, strtok(NULL, ",")); // Gets longitude
 //  Serial.write("Extracted response : ");
-  Serial.println(dataGPG);
+  Serial.write(dataGPG);
 //  Serial.write("\n---\n");
   return &dataGPG[0];
 }
@@ -148,4 +146,15 @@ String ArduiNow::sendData(String command, const int timeout, boolean debug) {
     }
     if (debug) Serial.print(response);
     return response;
+}
+
+/*Function contentMsg()
+Get the content of a message*/
+char ArduiNow::contentMsg(WISMO228 sms) {
+    char senderBuffer[RESPONSE_LENGTH_MAX];
+    char contentBuffer[SMS_LENGTH_MAX];
+    sms.readSms(senderBuffer, contentBuffer);
+    //char * res = (char *) malloc(SMS_LENGTH_MAX);
+   // strcpy(res, contentBuffer);
+    return contentBuffer[0];
 }

@@ -40,24 +40,24 @@ void loop() {
         if (arduinow.detectSms(data)) {
             //Serial1.write(data);
             arduinow.printMsg(sms);
-            if (contentMsg(sms) == '*')
+            if (arduinow.contentMsg(sms) == '*')
                 digitalWrite(LED_BUILTIN, HIGH);
-            else if (contentMsg(sms) == '-')
+            else if (arduinow.contentMsg(sms) == '-')
                 digitalWrite(LED_BUILTIN, LOW);
-            else if (contentMsg(sms) == '@'){
+            else if (arduinow.contentMsg(sms) == '@'){
               char message[RESPONSE_LENGTH_MAX+SMS_LENGTH_MAX];
               strcpy(message, "@ ");
               strcat(message, arduinow.sense());
               sms.sendSms(SMS_SERV, message);
             }
-            else if (contentMsg(sms) == '%'){
+            else if (arduinow.contentMsg(sms) == '%'){
               char message[RESPONSE_LENGTH_MAX+SMS_LENGTH_MAX];
               strcpy(message, "% ");
               strcat(message, arduinow.readGPS());
               sms.sendSms(SMS_SERV, message);
             }
             else
-                Serial1.write(contentMsg(sms));
+                Serial1.write(arduinow.contentMsg(sms));
 
         }
     }
@@ -81,11 +81,4 @@ void loop() {
     delay(1);  //delay for a short time to avoid unstable USB communication
 }
 
-char contentMsg(WISMO228 sms) {
-    char senderBuffer[RESPONSE_LENGTH_MAX];
-    char contentBuffer[SMS_LENGTH_MAX];
-    sms.readSms(senderBuffer, contentBuffer);
-    //char * res = (char *) malloc(SMS_LENGTH_MAX);
-   // strcpy(res, contentBuffer);
-    return contentBuffer[0];
-}
+
