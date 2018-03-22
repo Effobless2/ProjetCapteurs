@@ -96,6 +96,54 @@ def loaddb():
     p1.add_coordonnee(c5)
 
     db.session.add(p1)
+
+
+    p2 = Parterre(name        = "Parterre2")
+
+    c12 = Coordonnees(x        = 6082218.1406639,
+                     y        = 214948.183946385,
+                     parterre = p2.get_id(),
+                     num      = 0)
+    p2.add_coordonnee(c12)
+
+    c22 = Coordonnees(x        = 6082004.11689723,
+                     y        = 215414.449702291,
+                     parterre = p2.get_id(),
+                     num      = 1)
+    p2.add_coordonnee(c22)
+
+    c32 = Coordonnees(x        = 6081732.76550513,
+                     y        = 215330.369087811,
+                     parterre = p2.get_id(),
+                     num      = 2)
+    p2.add_coordonnee(c32)
+
+    c42 = Coordonnees(x        = 6081365.86768189,
+                     y        = 216029.76772167,
+                     parterre = p2.get_id(),
+                     num      = 3)
+    p2.add_coordonnee(c42)
+
+    c52 = Coordonnees(x        = 6081847.42104756,
+                     y        = 216293.47552757,
+                     parterre = p2.get_id(),
+                     num      = 4)
+    p2.add_coordonnee(c52)
+
+    c62 = Coordonnees(x        = 6082393.94577064,
+                     y        = 215104.879796053,
+                     parterre = p2.get_id(),
+                     num      = 5)
+    p2.add_coordonnee(c62)
+
+    c72 = Coordonnees(x        = 6082218.1406639,
+                     y        = 214948.183946385,
+                     parterre = p2.get_id(),
+                     num      = 6)
+    p2.add_coordonnee(c72)
+
+    db.session.add(p2)
+
     db.session.commit()
 
     #Creation of capteurs
@@ -111,15 +159,17 @@ def loaddb():
                       tel        = "0123456789",
                       TypeMesure = typeM2.get_id(),
                       parterre   = p1.get_id())
+    capteur2.set_X(1.933980)
+    capteur2.set_Y(47.844522)
     db.session.add(capteur2)
 
     capteur3 = Capteur(name       = "Capteur3",
                       intervalle = 10,
                       tel        = "0123458789",
                       TypeMesure = typeM2.get_id(),
-                      parterre   = p1.get_id())
-    capteur3.set_X(1.926739)
-    capteur3.set_Y(47.843282)
+                      parterre   = p2.get_id())
+    capteur3.set_X(1.938535)
+    capteur3.set_Y(47.849420)
     db.session.add(capteur3)
 
     db.session.commit()
@@ -138,6 +188,13 @@ def loaddb():
                      quantite = 15,
                      parterre_id = p1.get_id())
     p1.add_plante(plante2)
+
+    plante3 = TypePlante(nomPlant = "Roses",
+                     comportement = "Elles piquent beaucoup !",
+                     taux_humidite = 0.7,
+                     quantite = 390,
+                     parterre_id = p2.get_id())
+    p2.add_plante(plante3)
 
     #Creation of false datas
     donnee1 = Donnee(value   = 15,
