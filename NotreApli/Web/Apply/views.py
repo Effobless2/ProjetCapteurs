@@ -541,7 +541,7 @@ def save_plante():
         a.set_taux_humidite(f.get_taux_humidite())
         a.set_quantite(f.get_quantite())
         p = Actions(
-            contenu = "Modification de la plante "+a.get_name() + " du parterre "+ a.get_parterre().get_name(),
+            contenu = "Modification de la plante "+a.get_name() + " du parterre "+ get_parterre(a.get_parterre()).get_name(),
             liste = 1
         )
         db.session.add(p)
@@ -575,10 +575,11 @@ def delete_plante(id):
     Delete plant where its id equals id
     """
     plante = get_plante(id)
+    nom=plante.get_name()
     db.session.delete(plante)
     get_parterre(plante.get_parterre()).delete_plante(plante)
     p = Actions(
-        contenu = "Suppression de la plante "+plante.get_name() + " au parterre "+ plante.get_parterre().get_name(),
+        contenu = "Suppression de la plante "+nom + " au parterre "+ get_parterre(plante.get_parterre()).get_name(),
         liste = 1
     )
     db.session.add(p)
@@ -589,7 +590,7 @@ def delete_plante(id):
 def edit_plante(id):
     """
     Redirect to the edition formular of the plant
-    which its id equals id 
+    which its id equals id
     """
     plante = get_plante(id)
     form = PlanteForm(plante)
