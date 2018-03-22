@@ -147,3 +147,14 @@ String ArduiNow::sendData(String command, const int timeout, boolean debug) {
     if (debug) Serial.print(response);
     return response;
 }
+
+/*Function contentMsg()
+Get the content of a message*/
+char ArduiNow::contentMsg(WISMO228 sms) {
+    char senderBuffer[RESPONSE_LENGTH_MAX];
+    char contentBuffer[SMS_LENGTH_MAX];
+    sms.readSms(senderBuffer, contentBuffer);
+    //char * res = (char *) malloc(SMS_LENGTH_MAX);
+   // strcpy(res, contentBuffer);
+    return contentBuffer[0];
+}

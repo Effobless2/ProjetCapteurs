@@ -61,11 +61,3 @@ void loop() {
     delay(1);  //delay for a short time to avoid unstable USB communication
 }
 
-char contentMsg(WISMO228 sms) {
-    char senderBuffer[RESPONSE_LENGTH_MAX];
-    char contentBuffer[SMS_LENGTH_MAX];
-    sms.readSms(senderBuffer, contentBuffer);
-    //char * res = (char *) malloc(SMS_LENGTH_MAX);
-   // strcpy(res, contentBuffer);
-    return contentBuffer[0];
-}
