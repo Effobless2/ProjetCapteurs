@@ -36,7 +36,7 @@ void loop() {
     //If Serial1 receive data, print out to Serial
     while (Serial1.available()) {
         byte data = Serial1.read();
-       // Serial.write(data);
+       Serial.write(data);
         if (arduinow.detectSms(data)) {
             arduinow.printMsg(sms);
         }
@@ -44,7 +44,7 @@ void loop() {
     //If Serial receive data, print out to Serial1
     while (Serial.available()) {
         byte data = Serial.read();
-      //  Serial.write(data);
+        Serial.write(data);
 
         if (data == '*')
             digitalWrite(LED_BUILTIN, HIGH);
@@ -54,8 +54,8 @@ void loop() {
             sms.sendSms(SMS_SERV, "@");
         else if (data == '%')
             sms.sendSms(SMS_SERV, "%");
-        //else
-        //    Serial1.write(data);
+        else
+            Serial1.write(data);
 
     }
     delay(1);  //delay for a short time to avoid unstable USB communication

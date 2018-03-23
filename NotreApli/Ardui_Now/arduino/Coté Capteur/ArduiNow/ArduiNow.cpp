@@ -102,11 +102,11 @@ char* ArduiNow::readLine(Stream &print) {
 return the GPS localisation*/
 char* ArduiNow::readGPS() {
   memset(dataGPG, 0, sizeof(dataGPG));
-//  Serial.write("Sending request to GPS ... ");
-//  Serial1.write("AT+CGNSINF\n");
+  Serial.write("Sending request to GPS ... ");
+  Serial1.write("AT+CGNSINF\n");
   String raws = sendData("AT+CGNSINF\n", 1000, true);
   Serial.println(raws);
-//  Serial.write("Done.\n");
+  Serial.write("Done.\n");
   char ans[24];
   char frame[FRAM_LEN];
   raws.toCharArray(frame, FRAM_LEN);
