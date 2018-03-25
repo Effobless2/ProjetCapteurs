@@ -260,8 +260,8 @@ class Capteur(db.Model):
 
     def __init__(self, name, intervalle, tel, TypeMesure, parterre):
         self.nomCapt         = name
-        self.lieuGeoCaptX    = 51.25
-        self.lieuGeoCaptY    = 45.2
+        self.lieuGeoCaptX    = 1.926739
+        self.lieuGeoCaptY    = 47.843282
         self.lvlBatCapt      = 50
         self.numTel          = tel
         self.datePlacement   = datetime.datetime.now()
